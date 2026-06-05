@@ -41,6 +41,21 @@ body {
   color: hsl(var(--foreground));
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.full-bleed-page {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  max-width: 100vw;
+  transform: translateX(-50%);
+  overflow-x: hidden;
+}
+
 ::selection {
   background: hsl(var(--foreground));
   color: hsl(var(--background));

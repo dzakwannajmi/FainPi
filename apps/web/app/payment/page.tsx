@@ -112,16 +112,21 @@ export default function PaymentPage() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+    <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
       <section className="space-y-6">
         <div>
-          <p className="eyebrow-text mb-3">Payment</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/45">
+            Payment
+          </p>
 
-          <h1 className="page-title-compact max-w-xl text-white">
-            Pay with Freighter on Stellar Testnet.
+          <h1 className="font-body text-4xl font-medium leading-none tracking-[-0.06em] text-white md:text-5xl">
+            Pay with Freighter on{" "}
+            <span className="font-accent italic font-normal">
+              Stellar Testnet.
+            </span>
           </h1>
 
-          <p className="body-copy mt-4 max-w-xl">
+          <p className="mt-5 max-w-xl text-sm leading-8 text-white/55 md:text-base">
             This page demonstrates a wallet-based payment step for FainPi using
             native XLM on Stellar Testnet. After the payment is submitted, the
             premium API endpoint is unlocked using the current demo receipt
@@ -142,9 +147,10 @@ export default function PaymentPage() {
           onPay={handlePayWithXlm}
         />
 
-        <div className="rounded-3xl border border-white/15 bg-[#111111] p-5">
-          <h2 className="font-bold text-white">MVP note</h2>
-          <p className="mt-2 text-sm leading-7 text-neutral-400">
+        <div className="liquid-glass rounded-[2rem] p-5">
+          <h2 className="text-sm font-semibold text-white">MVP note</h2>
+
+          <p className="mt-2 text-sm leading-7 text-white/55">
             This payment page sends a real native XLM transaction on Stellar
             Testnet, but the API unlock still uses the current demo receipt
             header. Full MPP Charge verification remains the next integration
@@ -156,7 +162,7 @@ export default function PaymentPage() {
       <ApiResponsePanel
         title="Premium API response"
         result={apiResult}
-        minHeightClassName="min-h-[480px]"
+        minHeightClassName="min-h-[460px]"
       />
     </div>
   );

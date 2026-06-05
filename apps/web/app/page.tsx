@@ -55,7 +55,7 @@ const services = [
 
 export default function HomePage() {
   return (
-    <div className="relative left-1/2 -mt-28 -ml-[50vw] w-screen overflow-hidden bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+    <div className="full-bleed-page -mt-28 bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
       <section className="relative h-screen w-full overflow-hidden">
         <video
           className="absolute inset-0 h-full w-full -translate-y-[100px] object-cover object-bottom md:translate-y-0"
