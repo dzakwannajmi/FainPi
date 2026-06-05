@@ -47,18 +47,16 @@ export default function DemoPage() {
   }
 
   return (
-    <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+    <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr]">
       <section className="space-y-6">
         <div>
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-neutral-400">
-            Demo
-          </p>
+          <p className="eyebrow-text mb-3">Demo</p>
 
-          <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-white md:text-5xl">
+          <h1 className="page-title-compact max-w-md text-white">
             Test the API paywall.
           </h1>
 
-          <p className="mt-4 leading-8 text-neutral-400">
+          <p className="body-copy mt-4 max-w-lg">
             This page demonstrates the API layer. A premium endpoint returns{" "}
             <span className="font-mono font-bold text-white">402</span> without
             payment, then returns protected data after the demo receipt is sent.

@@ -115,15 +115,13 @@ export default function PaymentPage() {
     <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
       <section className="space-y-6">
         <div>
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-neutral-500">
-            Payment
-          </p>
+          <p className="eyebrow-text mb-3">Payment</p>
 
-          <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-white md:text-5xl">
+          <h1 className="page-title-compact max-w-xl text-white">
             Pay with Freighter on Stellar Testnet.
           </h1>
 
-          <p className="mt-4 leading-8 text-neutral-400">
+          <p className="body-copy mt-4 max-w-xl">
             This page demonstrates a wallet-based payment step for FainPi using
             native XLM on Stellar Testnet. After the payment is submitted, the
             premium API endpoint is unlocked using the current demo receipt

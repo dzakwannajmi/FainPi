@@ -14,7 +14,7 @@ export function ApiResponsePanel({
 }: ApiResponsePanelProps) {
   return (
     <section className="space-y-4">
-      <h2 className="text-xl font-bold tracking-tight text-white">{title}</h2>
+      <h2 className="section-title text-white">{title}</h2>
 
       <div className="soft-card rounded-3xl p-4">
         <div className="mb-3 flex items-center justify-between gap-3">

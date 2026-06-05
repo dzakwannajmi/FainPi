@@ -49,7 +49,7 @@ export default function HomePage() {
           </div>
 
           <div className="space-y-5">
-            <h1 className="max-w-4xl text-5xl font-extrabold tracking-[-0.06em] text-white md:text-7xl">
+            <h1 className="page-title max-w-4xl text-white">
               Turn any API into a paid endpoint.
             </h1>
 

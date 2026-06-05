@@ -7,7 +7,7 @@ type InfoCardProps = {
 export function InfoCard({ title, description, items = [] }: InfoCardProps) {
   return (
     <section className="soft-card rounded-3xl p-6">
-      <h2 className="text-xl font-bold tracking-tight text-white">{title}</h2>
+      <h2 className="card-title text-white">{title}</h2>
 
       <p className="mt-3 leading-7 text-neutral-400">{description}</p>
 

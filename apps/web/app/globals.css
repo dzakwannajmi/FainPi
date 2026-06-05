@@ -105,3 +105,47 @@ textarea {
   background: #050505;
   color: #d4d4d4;
 }
+
+.page-title {
+  font-size: clamp(2.25rem, 5vw, 4.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.page-title-compact {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.section-title {
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+.card-title {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.eyebrow-text {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #737373;
+}
+
+.body-copy {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: #a3a3a3;
+}

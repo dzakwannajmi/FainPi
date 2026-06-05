@@ -30,15 +30,13 @@ export default function GeneratorPage() {
     <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
       <section className="space-y-6">
         <div>
-          <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-neutral-500">
-            Generator
-          </p>
+          <p className="eyebrow-text mb-3">Generator</p>
 
-          <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-white md:text-5xl">
+          <h1 className="page-title-compact max-w-xl text-white">
             Generate a paid API middleware.
           </h1>
 
-          <p className="mt-4 leading-8 text-neutral-400">
+          <p className="body-copy mt-4 max-w-xl">
             Fill in your endpoint details and FainPi will generate an
             integration-ready Express middleware snippet. This snippet
             demonstrates how your API can return HTTP 402 Payment Required

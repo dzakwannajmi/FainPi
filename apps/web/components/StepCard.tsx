@@ -11,7 +11,7 @@ export function StepCard({ step, title, description }: StepCardProps) {
         {step}
       </div>
 
-      <h3 className="text-lg font-bold tracking-tight text-white">{title}</h3>
+      <h3 className="card-title text-white">{title}</h3>
 
       <p className="mt-3 leading-7 text-neutral-400">{description}</p>
     </div>
