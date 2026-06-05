@@ -1,0 +1,87 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Next.js
+.next/
+out/
+.vercel/
+.turbo/
+
+# Build output
+dist/
+build/
+
+# Rust / Soroban build output
+target/
+debug/
+release/
+*.wasm
+*.rlib
+*.rmeta
+
+# Environment variables
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Local frontend environment
+apps/web/.env
+apps/web/.env.local
+apps/web/.env.development.local
+apps/web/.env.test.local
+apps/web/.env.production.local
+
+# Local backend environment
+apps/demo-server/.env
+apps/demo-server/.env.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+
+# Test and coverage
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Local database files
+*.sqlite
+*.sqlite3
+*.db
+
+# Private keys and secrets
+*.pem
+*.key
+*.secret
+secret.json
+secrets.json

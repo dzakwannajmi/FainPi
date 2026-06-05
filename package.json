@@ -1,0 +1,24 @@
+{
+  "name": "fainpi",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pay-per-request API monetization powered by Stellar MPP.",
+  "scripts": {
+    "dev:web": "npm run dev --workspace apps/web",
+    "dev:server": "npm run dev --workspace apps/demo-server",
+    "start:server": "npm run start --workspace apps/demo-server"
+  },
+  "workspaces": [
+    "apps/demo-server",
+    "apps/web"
+  ],
+  "keywords": [
+    "stellar",
+    "mpp",
+    "api-paywall",
+    "micropayment",
+    "soroban"
+  ],
+  "author": "Muhammad Dzakwan Najmi",
+  "license": "MIT"
+}
