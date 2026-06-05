@@ -38,9 +38,19 @@ export default function GeneratorPage() {
           </h1>
           <p className="mt-4 leading-7 text-slate-300">
             Fill in your endpoint details and FainPi will generate an
-            integration-ready Express middleware snippet for a pay-per-request
-            API flow.
+            integration-ready Express middleware snippet. This snippet demonstrates how
+            your API can return HTTP 402 Payment Required before sending premium data.
           </p>
+          <div className="mt-5 rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-5">
+            <h2 className="font-semibold text-yellow-100">How to use this generator</h2>
+            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-7 text-yellow-50/90">
+              <li>Enter your protected endpoint path.</li>
+              <li>Set the price and payment asset.</li>
+              <li>Set your Stellar recipient address.</li>
+              <li>Copy the generated middleware snippet.</li>
+              <li>Connect it later with full Stellar MPP Charge verification.</li>
+            </ol>
+          </div>
         </div>
 
         <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6">
