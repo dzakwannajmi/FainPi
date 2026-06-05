@@ -69,6 +69,10 @@ export default function HomePage() {
               Try Payment Flow
             </Link>
 
+            <Link href="/registry" className="outline-button px-6 py-3">
+              View Registry
+            </Link>
+
             <Link href="/docs" className="outline-button px-6 py-3">
               Read Docs
             </Link>
@@ -137,8 +141,8 @@ HTTP/1.1 402 Payment Required
         />
 
         <InfoCard
-          title="Contract role"
-          description="The Soroban contract stores public API paywall metadata such as endpoint path, price, asset, payment network, and recipient address."
+          title="Registry role"
+          description="The Soroban Paywall Registry stores public API paywall metadata such as endpoint path, price, asset, payment network, and recipient address."
         />
       </section>
 

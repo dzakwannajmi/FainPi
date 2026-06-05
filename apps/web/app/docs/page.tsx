@@ -39,6 +39,26 @@ const contractFields = [
   "payment_network: stellar:testnet",
 ];
 
+const implementedItems = [
+  "HTTP 402 API paywall demo",
+  "Internal Next.js API routes",
+  "Freighter wallet connection",
+  "Native XLM payment on Stellar Testnet",
+  "Premium endpoint unlock after payment submission",
+  "Soroban Paywall Registry contract",
+  "Vercel live deployment",
+];
+
+const plannedItems = [
+  "Full Stellar MPP Charge verification",
+  "Production-grade payment receipt validation",
+  "USDC/SAC settlement support",
+  "Multi-endpoint paywall registry",
+  "Real earnings tracking",
+  "API usage analytics",
+  "Developer middleware package",
+];
+
 export default function DocsPage() {
   return (
     <div className="space-y-14">
@@ -85,6 +105,20 @@ export default function DocsPage() {
         />
       </section>
 
+      <section className="grid gap-4 lg:grid-cols-2">
+        <InfoCard
+          title="Implemented"
+          description="These parts are already available in the current FainPi MVP."
+          items={implementedItems}
+        />
+
+        <InfoCard
+          title="Planned"
+          description="These parts are planned for the next product and Stellar MPP integration phase."
+          items={plannedItems}
+        />
+      </section>
+
       <section className="grid gap-4 lg:grid-cols-3">
         <InfoCard
           title="Current MVP"
@@ -123,6 +157,8 @@ export default function DocsPage() {
             </div>
           ))}
         </div>
+
+
 
         <div className="mt-6 rounded-2xl border border-white/20 bg-white p-4 text-black">
           <p className="text-sm font-bold">Testnet Contract ID</p>
