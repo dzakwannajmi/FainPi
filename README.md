@@ -1,4 +1,3 @@
-````md
 # FainPi
 
 FainPi is a lightweight API paywall generator for pay-per-request API monetization powered by Stellar.
@@ -745,4 +744,3 @@ Stellar Indonesia / WO UNISKA
 ## Author
 
 Muhammad Dzakwan Najmi
-````
