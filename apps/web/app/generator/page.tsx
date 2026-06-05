@@ -6,7 +6,7 @@ import { generateExpressSnippet } from "@/lib/generateSnippet";
 export default function GeneratorPage() {
   const [endpointPath, setEndpointPath] = useState("/api/premium-data");
   const [amount, setAmount] = useState("0.01");
-  const [currency, setCurrency] = useState("USDC");
+  const [currency, setCurrency] = useState("XLM");
   const [recipient, setRecipient] = useState(
     "G_REPLACE_WITH_YOUR_STELLAR_PUBLIC_KEY"
   );
@@ -30,86 +30,91 @@ export default function GeneratorPage() {
     <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
       <section className="space-y-6">
         <div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-neutral-500">
             Generator
           </p>
-          <h1 className="text-4xl font-bold text-white">
+
+          <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-white md:text-5xl">
             Generate a paid API middleware.
           </h1>
-          <p className="mt-4 leading-7 text-slate-300">
+
+          <p className="mt-4 leading-8 text-neutral-400">
             Fill in your endpoint details and FainPi will generate an
-            integration-ready Express middleware snippet. This snippet demonstrates how
-            your API can return HTTP 402 Payment Required before sending premium data.
+            integration-ready Express middleware snippet. This snippet
+            demonstrates how your API can return HTTP 402 Payment Required
+            before sending premium data.
           </p>
-          <div className="mt-5 rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-5">
-            <h2 className="font-semibold text-yellow-100">How to use this generator</h2>
-            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-7 text-yellow-50/90">
-              <li>Enter your protected endpoint path.</li>
-              <li>Set the price and payment asset.</li>
-              <li>Set your Stellar recipient address.</li>
-              <li>Copy the generated middleware snippet.</li>
-              <li>Connect it later with full Stellar MPP Charge verification.</li>
-            </ol>
-          </div>
         </div>
 
-        <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900 p-6">
+        <div className="rounded-3xl border border-white/15 bg-[#111111] p-5">
+          <h2 className="font-bold text-white">How to use this generator</h2>
+
+          <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-7 text-neutral-400">
+            <li>Enter your protected endpoint path.</li>
+            <li>Set the price and payment asset.</li>
+            <li>Set your Stellar recipient address.</li>
+            <li>Copy the generated middleware snippet.</li>
+            <li>Connect it later with full Stellar MPP Charge verification.</li>
+          </ol>
+        </div>
+
+        <div className="soft-card space-y-4 rounded-3xl p-6">
           <label className="block space-y-2">
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-sm font-semibold text-neutral-300">
               Endpoint path
             </span>
             <input
               value={endpointPath}
               onChange={(event) => setEndpointPath(event.target.value)}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400"
+              className="input-field"
               placeholder="/api/premium-data"
             />
           </label>
 
           <label className="block space-y-2">
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-sm font-semibold text-neutral-300">
               Price per request
             </span>
             <input
               value={amount}
               onChange={(event) => setAmount(event.target.value)}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400"
+              className="input-field"
               placeholder="0.01"
             />
           </label>
 
           <label className="block space-y-2">
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-sm font-semibold text-neutral-300">
               Currency
             </span>
             <input
               value={currency}
               onChange={(event) => setCurrency(event.target.value)}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400"
-              placeholder="USDC"
+              className="input-field"
+              placeholder="XLM"
             />
           </label>
 
           <label className="block space-y-2">
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-sm font-semibold text-neutral-300">
               Stellar recipient address
             </span>
             <input
               value={recipient}
               onChange={(event) => setRecipient(event.target.value)}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400"
+              className="input-field"
               placeholder="G..."
             />
           </label>
 
           <label className="block space-y-2">
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-sm font-semibold text-neutral-300">
               Description
             </span>
             <input
               value={description}
               onChange={(event) => setDescription(event.target.value)}
-              className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 outline-none focus:border-cyan-400"
+              className="input-field"
               placeholder="Premium API access"
             />
           </label>
@@ -118,19 +123,16 @@ export default function GeneratorPage() {
 
       <section className="space-y-4">
         <div className="flex items-center justify-between gap-4">
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-xl font-bold tracking-tight text-white">
             Generated Express snippet
           </h2>
 
-          <button
-            onClick={copySnippet}
-            className="rounded-xl bg-cyan-400 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-cyan-300"
-          >
+          <button onClick={copySnippet} className="primary-button px-5 py-3">
             Copy
           </button>
         </div>
 
-        <pre className="max-h-[720px] overflow-auto rounded-2xl border border-slate-800 bg-slate-950 p-5 text-sm leading-7 text-slate-300">
+        <pre className="code-panel max-h-[720px] overflow-auto rounded-3xl p-5 text-sm leading-7">
           <code>{snippet}</code>
         </pre>
       </section>

@@ -102,12 +102,12 @@ export default function DocsPage() {
         />
       </section>
 
-      <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-        <h2 className="text-2xl font-bold text-white">
+      <section className="soft-card rounded-3xl p-6">
+        <h2 className="text-2xl font-extrabold tracking-tight text-white">
           Soroban Paywall Registry
         </h2>
 
-        <p className="mt-4 leading-7 text-slate-300">
+        <p className="mt-4 leading-7 text-neutral-400">
           FainPi includes a minimal Soroban contract that stores public API
           paywall metadata. It does not process payments, custody funds, verify
           receipts, or implement billing logic.
@@ -117,27 +117,25 @@ export default function DocsPage() {
           {contractFields.map((field) => (
             <div
               key={field}
-              className="rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 font-mono text-sm text-slate-300"
+              className="rounded-2xl border border-[#262626] bg-[#050505] px-4 py-3 font-mono text-sm text-neutral-300"
             >
               {field}
             </div>
           ))}
         </div>
 
-        <div className="mt-6 rounded-xl border border-cyan-400/30 bg-cyan-400/10 p-4">
-          <p className="text-sm text-cyan-100">Testnet Contract ID</p>
-          <p className="mt-2 break-all font-mono text-sm text-cyan-200">
+        <div className="mt-6 rounded-2xl border border-white/20 bg-white p-4 text-black">
+          <p className="text-sm font-bold">Testnet Contract ID</p>
+          <p className="mt-2 break-all font-mono text-sm">
             CA5D5QCSQGKTL65LEFEOFNKLFSBCTJPBHW34GBZ2CBMD6GUBM5BZBWDE
           </p>
         </div>
       </section>
 
-      <section className="rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-6">
-        <h2 className="text-xl font-semibold text-yellow-100">
-          Safe project claim
-        </h2>
+      <section className="rounded-3xl border border-white/15 bg-[#111111] p-6">
+        <h2 className="text-xl font-bold text-white">Safe project claim</h2>
 
-        <p className="mt-3 leading-7 text-yellow-50/90">
+        <p className="mt-3 leading-7 text-neutral-400">
           FainPi demonstrates a pay-per-request API monetization flow on
           Stellar. The MVP includes a protected API endpoint, Freighter-based
           Testnet payment, premium endpoint unlock, and a minimal Soroban

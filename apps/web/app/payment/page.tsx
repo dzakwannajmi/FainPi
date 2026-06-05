@@ -3,10 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ApiResponsePanel } from "@/components/ApiResponsePanel";
 import { PaymentCard } from "@/components/PaymentCard";
-import {
-  PAYMENT_AMOUNT,
-  PAYMENT_RECIPIENT,
-} from "@/lib/constants";
+import { PAYMENT_AMOUNT, PAYMENT_RECIPIENT } from "@/lib/constants";
 import { callDemoEndpoint, createEmptyApiResult } from "@/lib/apiClient";
 import {
   checkFreighterConnection,
@@ -118,15 +115,15 @@ export default function PaymentPage() {
     <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
       <section className="space-y-6">
         <div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-neutral-500">
             Payment
           </p>
 
-          <h1 className="text-4xl font-bold text-white">
+          <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-white md:text-5xl">
             Pay with Freighter on Stellar Testnet.
           </h1>
 
-          <p className="mt-4 leading-7 text-slate-300">
+          <p className="mt-4 leading-8 text-neutral-400">
             This page demonstrates a wallet-based payment step for FainPi using
             native XLM on Stellar Testnet. After the payment is submitted, the
             premium API endpoint is unlocked using the current demo receipt
@@ -147,9 +144,9 @@ export default function PaymentPage() {
           onPay={handlePayWithXlm}
         />
 
-        <div className="rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-5">
-          <h2 className="font-semibold text-yellow-100">MVP note</h2>
-          <p className="mt-2 text-sm leading-7 text-yellow-50/80">
+        <div className="rounded-3xl border border-white/15 bg-[#111111] p-5">
+          <h2 className="font-bold text-white">MVP note</h2>
+          <p className="mt-2 text-sm leading-7 text-neutral-400">
             This payment page sends a real native XLM transaction on Stellar
             Testnet, but the API unlock still uses the current demo receipt
             header. Full MPP Charge verification remains the next integration
