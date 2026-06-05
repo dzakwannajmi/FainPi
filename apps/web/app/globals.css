@@ -1,14 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #050505;
-  --foreground: #ffffff;
-  --muted: #a3a3a3;
-  --card: #0d0d0d;
-  --card-soft: #141414;
-  --border: #262626;
-  --accent: #ffffff;
-  --accent-text: #050505;
+  --background: 0 0% 0%;
+  --foreground: 0 0% 100%;
+
+  --card: 0 0% 9%;
+  --card-foreground: 0 0% 100%;
+
+  --primary: 0 0% 97%;
+  --primary-foreground: 0 0% 9%;
+
+  --secondary: 0 0% 15%;
+  --secondary-foreground: 0 0% 100%;
+
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 75%;
+
+  --accent: 0 0% 15%;
+  --accent-foreground: 0 0% 100%;
+
+  --border: 0 0% 20%;
+  --input: 0 0% 20%;
+  --ring: 0 0% 100%;
+
+  --radius: 2px;
 }
 
 * {
@@ -17,16 +32,18 @@
 
 html {
   scroll-behavior: smooth;
+  background: hsl(var(--background));
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
 }
 
 ::selection {
-  background: #ffffff;
-  color: #050505;
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
 }
 
 button,
@@ -36,81 +53,149 @@ textarea {
   font: inherit;
 }
 
+button {
+  cursor: pointer;
+}
+
 input,
 textarea {
-  color: #ffffff;
+  color: hsl(var(--foreground));
 }
 
-.mono-card {
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, #111111 0%, #080808 100%);
+.font-body {
+  font-family: var(--font-body), sans-serif;
 }
 
-.soft-card {
-  border: 1px solid var(--border);
-  background: var(--card);
+.font-accent {
+  font-family: var(--font-accent), serif;
 }
 
-.subtle-card {
-  border: 1px solid #1f1f1f;
-  background: var(--card-soft);
+.liquid-glass,
+.liquid-glass-strong {
+  position: relative;
+  isolation: isolate;
+  background: rgba(255, 255, 255, 0.01);
+  background-blend-mode: luminosity;
+  border: none;
+}
+
+.liquid-glass {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  --glass-edge-strong: rgba(255, 255, 255, 0.45);
+  --glass-edge-soft: rgba(255, 255, 255, 0.15);
+}
+
+.liquid-glass-strong {
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  box-shadow:
+    4px 4px 4px rgba(0, 0, 0, 0.05),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15);
+  --glass-edge-strong: rgba(255, 255, 255, 0.5);
+  --glass-edge-soft: rgba(255, 255, 255, 0.2);
+}
+
+.liquid-glass::before,
+.liquid-glass-strong::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    var(--glass-edge-strong) 0%,
+    var(--glass-edge-soft) 20%,
+    transparent 40%,
+    transparent 60%,
+    var(--glass-edge-soft) 80%,
+    var(--glass-edge-strong) 100%
+  );
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
 }
 
 .primary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 9999px;
-  background: #ffffff;
-  color: #050505;
-  font-weight: 700;
-  transition: all 180ms ease;
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+  font-weight: 600;
+  transition:
+    transform 180ms ease,
+    background 180ms ease;
 }
 
 .primary-button:hover {
-  background: #e5e5e5;
   transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.86);
 }
 
 .outline-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 9999px;
-  border: 1px solid #3a3a3a;
-  color: #ffffff;
-  font-weight: 700;
-  transition: all 180ms ease;
+  color: hsl(var(--foreground));
+  font-weight: 600;
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease;
 }
 
 .outline-button:hover {
-  border-color: #ffffff;
-  background: #ffffff;
-  color: #050505;
   transform: translateY(-1px);
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
 }
 
 .input-field {
   width: 100%;
-  border-radius: 1rem;
-  border: 1px solid #2a2a2a;
-  background: #050505;
+  border-radius: 9999px;
+  border: 1px solid hsl(var(--input));
+  background: rgba(255, 255, 255, 0.02);
   padding: 0.85rem 1rem;
-  color: #ffffff;
+  color: hsl(var(--foreground));
   outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .input-field:focus {
-  border-color: #ffffff;
+  border-color: hsl(var(--foreground));
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
 }
 
 .code-panel {
-  border: 1px solid #1f1f1f;
-  background: #050505;
-  color: #d4d4d4;
+  border: 1px solid hsl(var(--border));
+  background: rgba(0, 0, 0, 0.72);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.soft-card {
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
 }
 
 .page-title {
-  font-size: clamp(2.25rem, 5vw, 4.75rem);
-  line-height: 0.95;
+  font-size: clamp(2.75rem, 6vw, 5.5rem);
+  line-height: 0.92;
   letter-spacing: -0.06em;
-  font-weight: 800;
+  font-weight: 500;
   text-wrap: balance;
 }
 
@@ -118,34 +203,35 @@ textarea {
   font-size: clamp(2rem, 4vw, 3.25rem);
   line-height: 1;
   letter-spacing: -0.05em;
-  font-weight: 800;
+  font-weight: 600;
   text-wrap: balance;
 }
 
 .section-title {
-  font-size: clamp(1.15rem, 2vw, 1.5rem);
-  line-height: 1.2;
-  letter-spacing: -0.03em;
-  font-weight: 800;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 500;
+  text-wrap: balance;
 }
 
 .card-title {
   font-size: clamp(1rem, 1.6vw, 1.2rem);
   line-height: 1.25;
   letter-spacing: -0.02em;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .eyebrow-text {
   font-size: 0.75rem;
-  font-weight: 800;
+  font-weight: 600;
   letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: #737373;
+  color: hsl(var(--muted-foreground));
 }
 
 .body-copy {
   font-size: 0.95rem;
   line-height: 1.9;
-  color: #a3a3a3;
+  color: hsl(var(--muted-foreground));
 }

@@ -1,11 +1,20 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Barlow, Instrument_Serif } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
-const poppins = Poppins({
+const barlow = Barlow({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-accent",
   display: "swap",
 });
 
@@ -15,10 +24,9 @@ export const metadata: Metadata = {
 };
 
 const navigationItems = [
-  { href: "/", label: "Home" },
-  { href: "/generator", label: "Generator" },
-  { href: "/demo", label: "Demo" },
-  { href: "/payment", label: "Payment" },
+  { href: "/#work", label: "Work" },
+  { href: "/#services", label: "Services" },
+  { href: "/#about", label: "About" },
   { href: "/registry", label: "Registry" },
   { href: "/docs", label: "Docs" },
 ];
@@ -30,34 +38,43 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={poppins.className}>
-        <div className="min-h-screen bg-[#050505] text-white">
-          <header className="sticky top-0 z-50 border-b border-[#1f1f1f] bg-[#050505]/85 backdrop-blur-xl">
-            <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-              <Link href="/" className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-sm font-black text-black">
-                  FP
-                </div>
-                <span className="text-xl font-extrabold tracking-tight">
-                  FainPi
-                </span>
+      <body
+        className={`${barlow.variable} ${instrumentSerif.variable} font-body`}
+      >
+        <div className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+          <header className="fixed inset-x-0 top-0 z-50 px-8 py-6">
+            <nav className="flex items-center justify-between">
+              <Link
+                href="/"
+                className="font-body text-xl font-semibold tracking-tight text-[hsl(var(--foreground))]"
+              >
+                FAINPI
               </Link>
 
-              <div className="flex max-w-[70vw] gap-1 overflow-x-auto rounded-full border border-[#1f1f1f] bg-[#0d0d0d] p-1 text-sm text-neutral-300">
+              <div className="liquid-glass hidden rounded-full px-1 py-1 md:flex">
                 {navigationItems.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="shrink-0 rounded-full px-4 py-2 transition hover:bg-white hover:text-black"
+                    className="rounded-full px-4 py-2 text-sm font-medium text-[hsl(var(--foreground))] transition hover:bg-white/10"
                   >
                     {item.label}
                   </Link>
                 ))}
               </div>
+
+              <Link
+                href="/payment"
+                className="liquid-glass-strong rounded-full px-6 py-2.5 text-sm font-medium text-[hsl(var(--foreground))]"
+              >
+                Get Started
+              </Link>
             </nav>
           </header>
 
-          <main className="mx-auto max-w-6xl px-6 py-10">{children}</main>
+          <main className="mx-auto max-w-6xl px-6 pt-28 pb-10">
+            {children}
+          </main>
         </div>
       </body>
     </html>

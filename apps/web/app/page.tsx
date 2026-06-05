@@ -1,169 +1,371 @@
-import Link from "next/link";
-import { InfoCard } from "@/components/InfoCard";
-import { SectionHeader } from "@/components/SectionHeader";
-import { StepCard } from "@/components/StepCard";
+"use client";
 
-const productSteps = [
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { HlsVideoBackground } from "@/components/HlsVideoBackground";
+import { ScrollRevealText } from "@/components/ScrollRevealText";
+
+const heroVideo =
+  "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260326_073936_8dd07fdb-4f6b-4220-a3f0-9dedfaab0c88.mp4";
+
+const showcaseVideo =
+  "https://media.cleanshot.cloud/media/21620/nKosRonaEKSufJVJ4VtouFhOPkqgJ3dPoQ8ZP52S.mp4";
+
+const hlsStream =
+  "https://stream.mux.com/4IMYGcL01xjs7ek5ANO17JC4VQVUTsojZlnw4fXzwSxc.m3u8";
+
+const aboutText =
+  "We blend Stellar payments with developer-first API tooling to craft monetization flows that are simple, fast, and ready for the next generation of machine-to-machine commerce.";
+
+const workItems = [
   {
-    step: "1",
-    title: "Generate paywall code",
-    description:
-      "Configure an endpoint path, price, asset, and recipient address. FainPi generates a middleware snippet for a paid API flow.",
+    title: "Paywall Generator",
+    category: "Middleware Generator",
+    image: "https://motionsites.ai/assets/hero-grow-ai-preview-BlQ8tAQ-.gif",
+    href: "/generator",
   },
   {
-    step: "2",
-    title: "Protect premium access",
-    description:
-      "The protected endpoint returns HTTP 402 Payment Required when accessed without a payment receipt.",
+    title: "Premium API Demo",
+    category: "HTTP 402 API Flow",
+    image: "https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif",
+    href: "/demo",
   },
   {
-    step: "3",
-    title: "Pay with Stellar",
-    description:
-      "Users connect Freighter, send native XLM on Stellar Testnet, and receive a transaction hash.",
+    title: "Freighter Payment",
+    category: "Stellar Testnet XLM",
+    image: "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif",
+    href: "/payment",
   },
   {
-    step: "4",
-    title: "Unlock the response",
-    description:
-      "After payment submission, the MVP unlocks the premium API response using the demo receipt flow.",
+    title: "Soroban Registry",
+    category: "On-chain Paywall Metadata",
+    image: "https://motionsites.ai/assets/hero-neuralyn-preview-Br4FRDQA.gif",
+    href: "/registry",
   },
 ];
 
-const useCases = [
-  "Premium data API",
-  "AI summary endpoint",
-  "Campus dataset API",
-  "File download endpoint",
-  "Developer tool API",
-  "API for AI agents",
+const services = [
+  "API paywall generation",
+  "HTTP 402 protected endpoint",
+  "Freighter wallet payment",
+  "Soroban paywall registry",
 ];
 
 export default function HomePage() {
   return (
-    <div className="space-y-24">
-      <section className="grid gap-10 py-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-        <div className="space-y-7">
-          <div className="inline-flex rounded-full border border-white/20 bg-white px-4 py-2 text-sm font-bold text-black">
-            Stellar Pay-Per-Request API Monetization
-          </div>
-
-          <div className="space-y-5">
-            <h1 className="page-title max-w-4xl text-white">
-              Turn any API into a paid endpoint.
-            </h1>
-
-            <p className="max-w-2xl text-lg leading-8 text-neutral-400">
-              FainPi helps developers demonstrate a lightweight API paywall
-              flow using HTTP 402, Freighter wallet payment, and a Soroban
-              paywall registry contract.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <Link href="/generator" className="primary-button px-6 py-3">
-              Generate Middleware
-            </Link>
-
-            <Link href="/payment" className="outline-button px-6 py-3">
-              Try Payment Flow
-            </Link>
-
-            <Link href="/registry" className="outline-button px-6 py-3">
-              View Registry
-            </Link>
-
-            <Link href="/docs" className="outline-button px-6 py-3">
-              Read Docs
-            </Link>
-          </div>
-
-          <div className="rounded-3xl border border-white/15 bg-[#111111] p-5">
-            <p className="text-sm leading-7 text-neutral-300">
-              <span className="font-bold text-white">MVP note:</span> FainPi
-              currently uses native XLM on Stellar Testnet and a demo receipt
-              header for API unlock. Full Stellar MPP Charge verification is
-              planned as the next integration phase.
-            </p>
-          </div>
-        </div>
-
-        <div className="mono-card rounded-[2rem] p-6 shadow-2xl">
-          <div className="mb-4 flex gap-2">
-            <span className="h-3 w-3 rounded-full bg-white" />
-            <span className="h-3 w-3 rounded-full bg-neutral-500" />
-            <span className="h-3 w-3 rounded-full bg-neutral-800" />
-          </div>
-
-          <pre className="code-panel overflow-x-auto rounded-3xl p-5 text-sm leading-7">
-            <code>{`GET /api/premium-data
-
-HTTP/1.1 402 Payment Required
-
-{
-  "error": "Payment Required",
-  "amount": "0.01",
-  "currency": "XLM",
-  "network": "stellar:testnet"
-}`}</code>
-          </pre>
-        </div>
-      </section>
-
-      <section className="space-y-8">
-        <SectionHeader
-          eyebrow="How it works"
-          title="A simple API paywall flow."
-          description="FainPi shows how a protected API endpoint can request payment before returning premium data."
+    <div className="relative left-1/2 -mt-28 -ml-[50vw] w-screen overflow-hidden bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
+      <section className="relative h-screen w-full overflow-hidden">
+        <video
+          className="absolute inset-0 h-full w-full -translate-y-[100px] object-cover object-bottom md:translate-y-0"
+          src={heroVideo}
+          autoPlay
+          loop
+          muted
+          playsInline
         />
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {productSteps.map((item) => (
-            <StepCard
-              key={item.step}
-              step={item.step}
-              title={item.title}
-              description={item.description}
-            />
-          ))}
-        </div>
-      </section>
+        <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-[hsl(var(--background))] to-transparent" />
 
-      <section className="grid gap-4 lg:grid-cols-3">
-        <InfoCard
-          title="Problem"
-          description="Small developers often have useful APIs, but setting up subscriptions, payment gateways, and billing systems is too complex for simple pay-per-request access."
-        />
-
-        <InfoCard
-          title="Solution"
-          description="FainPi demonstrates a lightweight API paywall where premium access requires a Stellar-based payment before the endpoint response is unlocked."
-        />
-
-        <InfoCard
-          title="Registry role"
-          description="The Soroban Paywall Registry stores public API paywall metadata such as endpoint path, price, asset, payment network, and recipient address."
-        />
-      </section>
-
-      <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-        <SectionHeader
-          eyebrow="Use cases"
-          title="Built for small API monetization."
-          description="FainPi demonstrates paid API access for premium data, AI tools, file endpoints, and agentic applications."
-        />
-
-        <div className="grid gap-3 sm:grid-cols-2">
-          {useCases.map((item) => (
-            <div
-              key={item}
-              className="rounded-full border border-[#262626] bg-[#0d0d0d] px-5 py-4 text-neutral-200"
-            >
-              {item}
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-8 pb-10 md:pb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="mb-6 flex flex-wrap items-center gap-4"
+          >
+            <div className="-space-x-2">
+              {[11, 32, 48].map((id) => (
+                <img
+                  key={id}
+                  src={`https://i.pravatar.cc/96?img=${id}`}
+                  alt="FainPi user avatar"
+                  className="inline-block h-8 w-8 rounded-full border-2 border-[hsl(var(--background))]"
+                />
+              ))}
             </div>
+
+            <p className="text-sm text-[hsl(var(--muted-foreground))]">
+              7,000+ API requests ready to be monetized
+            </p>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 36 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.1 }}
+            className="max-w-5xl font-body text-3xl font-medium tracking-[-1px] text-[hsl(var(--foreground))] sm:text-5xl md:text-6xl md:tracking-[-2px] lg:text-7xl"
+          >
+            Build paid APIs with{" "}
+            <span className="font-accent italic font-normal">
+              Stellar Magic
+            </span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.2 }}
+            className="mt-6 text-sm text-[hsl(var(--muted-foreground))] md:text-lg md:whitespace-nowrap"
+          >
+            Pay-per-request API monetization with Freighter, HTTP 402, and
+            Soroban metadata.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.3 }}
+            className="mt-8 flex flex-wrap gap-3"
+          >
+            <Link href="/generator" className="primary-button px-8 py-4">
+              GENERATE
+            </Link>
+
+            <Link
+              href="/payment"
+              className="liquid-glass-strong rounded-full px-8 py-4 text-sm font-semibold text-[hsl(var(--foreground))]"
+            >
+              TRY PAYMENT
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      <section
+        id="about"
+        className="mx-auto max-w-4xl bg-[hsl(var(--background))] px-8 py-32 text-center"
+      >
+        <ScrollRevealText text={aboutText} />
+      </section>
+
+      <section
+        id="work"
+        className="relative z-10 mx-auto max-w-6xl bg-[hsl(var(--background))] px-8 pt-32 pb-16"
+      >
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <h2 className="font-body text-4xl font-medium tracking-[-2px] text-[hsl(var(--foreground))] md:text-5xl">
+            Selected{" "}
+            <span className="font-accent italic font-normal">Work</span>
+          </h2>
+
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-[hsl(var(--muted-foreground))]">
+            A focused collection of FainPi modules where API monetization meets
+            Stellar payments.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {workItems.map((item, index) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <Link href={item.href} className="group block">
+                <div className="liquid-glass aspect-[4/3] overflow-hidden rounded-2xl">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                </div>
+
+                <div className="mt-5">
+                  <h3 className="font-body text-xl font-medium text-[hsl(var(--foreground))]">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-1 font-body text-sm text-[hsl(var(--muted-foreground))]">
+                    {item.category}
+                  </p>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </div>
       </section>
+
+      <section className="relative z-0 -mt-[325px] h-[650px] overflow-hidden">
+        <video
+          src={showcaseVideo}
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+
+        <div className="absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-[hsl(var(--background))] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 z-10 h-32 bg-gradient-to-t from-[hsl(var(--background))] to-transparent" />
+      </section>
+
+      <section
+        id="services"
+        className="mx-auto grid max-w-6xl gap-6 px-8 py-24 md:grid-cols-4"
+      >
+        {services.map((service, index) => (
+          <motion.div
+            key={service}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.08 }}
+            className="liquid-glass rounded-2xl p-6"
+          >
+            <p className="text-sm text-[hsl(var(--muted-foreground))]">
+              0{index + 1}
+            </p>
+
+            <h3 className="mt-4 text-lg font-medium text-[hsl(var(--foreground))]">
+              {service}
+            </h3>
+          </motion.div>
+        ))}
+      </section>
+
+      <section
+        id="contact"
+        className="relative z-10 flex h-screen w-full items-center justify-center overflow-hidden"
+      >
+        <HlsVideoBackground src={hlsStream} />
+
+        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-x-0 top-0 z-10 h-40 bg-gradient-to-b from-[hsl(var(--background))] to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 z-10 h-40 bg-gradient-to-t from-[hsl(var(--background))] to-transparent" />
+
+        <div className="relative z-20 mx-auto max-w-3xl px-8 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="font-body text-4xl font-medium tracking-[-2px] text-[hsl(var(--foreground))] md:text-5xl lg:text-6xl"
+          >
+            Ready to{" "}
+            <span className="font-accent italic font-normal">Monetize</span>{" "}
+            Your API?
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="mt-6 text-lg text-[hsl(var(--muted-foreground))]"
+          >
+            Generate a paywall, test the 402 flow, pay with Freighter, and
+            verify the registry.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mt-10 flex flex-wrap justify-center gap-4"
+          >
+            <Link
+              href="/generator"
+              className="rounded-full bg-[hsl(var(--foreground))] px-10 py-4 text-sm font-semibold text-[hsl(var(--background))]"
+            >
+              START A PROJECT
+            </Link>
+
+            <Link
+              href="/payment"
+              className="liquid-glass-strong rounded-full px-10 py-4 text-sm font-semibold text-[hsl(var(--foreground))]"
+            >
+              TRY PAYMENT
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      <footer className="border-t border-[hsl(var(--border))] bg-[hsl(var(--background))] px-8 py-16">
+        <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-4">
+          <div>
+            <h3 className="text-xl font-semibold tracking-tight">FAINPI</h3>
+            <p className="mt-4 max-w-xs text-sm leading-7 text-[hsl(var(--muted-foreground))]">
+              Pay-per-request API monetization powered by Stellar.
+            </p>
+          </div>
+
+          <FooterGroup
+            title="Product"
+            links={[
+              { label: "Generator", href: "/generator" },
+              { label: "Demo", href: "/demo" },
+              { label: "Payment", href: "/payment" },
+              { label: "Registry", href: "/registry" },
+            ]}
+          />
+
+          <FooterGroup
+            title="Build"
+            links={[
+              { label: "Next.js", href: "/docs" },
+              { label: "Freighter", href: "/payment" },
+              { label: "Soroban", href: "/registry" },
+              { label: "Stellar Testnet", href: "/docs" },
+            ]}
+          />
+
+          <FooterGroup
+            title="Connect"
+            links={[
+              { label: "GitHub", href: "https://github.com/dzakwannajmi/FainPi" },
+              { label: "Docs", href: "/docs" },
+              { label: "Workshop", href: "/docs" },
+              { label: "Submission", href: "/docs" },
+            ]}
+          />
+        </div>
+
+        <div className="mx-auto mt-16 flex max-w-6xl flex-wrap items-center justify-between gap-4 border-t border-[hsl(var(--border))] pt-8 text-sm text-[hsl(var(--muted-foreground))]">
+          <p>© 2026 FainPi. All rights reserved.</p>
+
+          <div className="flex gap-5">
+            <Link href="/docs" className="hover:text-[hsl(var(--foreground))]">
+              Privacy
+            </Link>
+
+            <Link href="/docs" className="hover:text-[hsl(var(--foreground))]">
+              Terms
+            </Link>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function FooterGroup({
+  title,
+  links,
+}: {
+  title: string;
+  links: { label: string; href: string }[];
+}) {
+  return (
+    <div>
+      <h4 className="text-sm font-semibold text-[hsl(var(--foreground))]">
+        {title}
+      </h4>
+
+      <ul className="mt-4 space-y-3">
+        {links.map((link) => (
+          <li key={link.label}>
+            <Link
+              href={link.href}
+              className="text-sm text-[hsl(var(--muted-foreground))] transition hover:text-[hsl(var(--foreground))]"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
