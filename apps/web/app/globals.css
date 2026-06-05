@@ -1,26 +1,107 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050505;
+  --foreground: #ffffff;
+  --muted: #a3a3a3;
+  --card: #0d0d0d;
+  --card-soft: #141414;
+  --border: #262626;
+  --accent: #ffffff;
+  --accent-text: #050505;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background: #ffffff;
+  color: #050505;
+}
+
+button,
+a,
+input,
+textarea {
+  font: inherit;
+}
+
+input,
+textarea {
+  color: #ffffff;
+}
+
+.mono-card {
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, #111111 0%, #080808 100%);
+}
+
+.soft-card {
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+.subtle-card {
+  border: 1px solid #1f1f1f;
+  background: var(--card-soft);
+}
+
+.primary-button {
+  border-radius: 9999px;
+  background: #ffffff;
+  color: #050505;
+  font-weight: 700;
+  transition: all 180ms ease;
+}
+
+.primary-button:hover {
+  background: #e5e5e5;
+  transform: translateY(-1px);
+}
+
+.outline-button {
+  border-radius: 9999px;
+  border: 1px solid #3a3a3a;
+  color: #ffffff;
+  font-weight: 700;
+  transition: all 180ms ease;
+}
+
+.outline-button:hover {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #050505;
+  transform: translateY(-1px);
+}
+
+.input-field {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid #2a2a2a;
+  background: #050505;
+  padding: 0.85rem 1rem;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.input-field:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+.code-panel {
+  border: 1px solid #1f1f1f;
+  background: #050505;
+  color: #d4d4d4;
 }

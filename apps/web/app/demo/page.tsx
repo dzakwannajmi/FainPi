@@ -50,19 +50,18 @@ export default function DemoPage() {
     <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
       <section className="space-y-6">
         <div>
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-cyan-300">
+          <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-neutral-400">
             Demo
           </p>
 
-          <h1 className="text-4xl font-bold text-white">
-            Test FainPi protected endpoints.
+          <h1 className="text-4xl font-extrabold tracking-[-0.04em] text-white md:text-5xl">
+            Test the API paywall.
           </h1>
 
-          <p className="mt-4 leading-7 text-slate-300">
-            This page demonstrates the API paywall layer. A premium endpoint
-            returns <span className="font-mono text-yellow-300">402</span>{" "}
-            without payment, then returns protected data after the demo payment
-            receipt is sent.
+          <p className="mt-4 leading-8 text-neutral-400">
+            This page demonstrates the API layer. A premium endpoint returns{" "}
+            <span className="font-mono font-bold text-white">402</span> without
+            payment, then returns protected data after the demo receipt is sent.
           </p>
         </div>
 
@@ -74,28 +73,20 @@ export default function DemoPage() {
               disabled={isLoading}
               className={
                 action.variant === "primary"
-                  ? "rounded-xl bg-cyan-400 px-5 py-4 text-left font-semibold text-slate-950 transition hover:bg-cyan-300 disabled:cursor-not-allowed disabled:opacity-50"
-                  : "rounded-xl border border-slate-700 px-5 py-4 text-left font-semibold text-slate-100 transition hover:border-cyan-400 disabled:cursor-not-allowed disabled:opacity-50"
+                  ? "primary-button px-5 py-4 text-left disabled:cursor-not-allowed disabled:opacity-50"
+                  : "outline-button px-5 py-4 text-left disabled:cursor-not-allowed disabled:opacity-50"
               }
             >
               <span className="block">{action.label}</span>
-              <span
-                className={
-                  action.variant === "primary"
-                    ? "mt-1 block text-sm font-normal text-slate-800"
-                    : "mt-1 block text-sm font-normal text-slate-400"
-                }
-              >
+              <span className="mt-1 block text-sm font-normal opacity-70">
                 {action.description}
               </span>
             </button>
           ))}
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6">
-          <h2 className="mb-4 text-xl font-semibold text-white">
-            Mock dashboard
-          </h2>
+        <div className="soft-card rounded-3xl p-6">
+          <h2 className="mb-4 text-xl font-bold text-white">Mock dashboard</h2>
 
           <div className="grid gap-4 sm:grid-cols-3">
             <DashboardMetric label="Total requests" value="24" />
@@ -104,11 +95,11 @@ export default function DemoPage() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-yellow-400/30 bg-yellow-400/10 p-5">
-          <h2 className="font-semibold text-yellow-100">MVP note</h2>
-          <p className="mt-2 text-sm leading-7 text-yellow-50/80">
-            This demo page focuses on the HTTP API paywall behavior. The wallet
-            payment flow is available on the Payment page.
+        <div className="rounded-3xl border border-white/15 bg-[#111111] p-5">
+          <h2 className="font-bold text-white">MVP note</h2>
+          <p className="mt-2 text-sm leading-7 text-neutral-400">
+            This demo focuses on HTTP 402 behavior. The wallet payment flow is
+            available on the Payment page.
           </p>
         </div>
       </section>
@@ -127,8 +118,8 @@ function DashboardMetric({
 }) {
   return (
     <div>
-      <p className="text-sm text-slate-400">{label}</p>
-      <p className="text-2xl font-bold text-white">{value}</p>
+      <p className="text-sm text-neutral-500">{label}</p>
+      <p className="text-2xl font-extrabold text-white">{value}</p>
     </div>
   );
 }

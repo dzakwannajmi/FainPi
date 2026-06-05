@@ -7,7 +7,7 @@ export function StatusBadge({ status }: StatusBadgeProps) {
   const className = getStatusClassName(status);
 
   return (
-    <span className={`rounded-full px-3 py-1 text-xs font-semibold ${className}`}>
+    <span className={`rounded-full px-3 py-1 text-xs font-bold ${className}`}>
       {label}
     </span>
   );
@@ -15,20 +15,20 @@ export function StatusBadge({ status }: StatusBadgeProps) {
 
 function getStatusClassName(status: number | null) {
   if (status === null) {
-    return "bg-slate-800 text-slate-300";
+    return "bg-neutral-800 text-neutral-300";
   }
 
   if (status >= 200 && status < 300) {
-    return "bg-emerald-400/10 text-emerald-300";
+    return "bg-white text-black";
   }
 
   if (status === 402) {
-    return "bg-yellow-400/10 text-yellow-300";
+    return "bg-neutral-200 text-black";
   }
 
   if (status >= 400) {
-    return "bg-red-400/10 text-red-300";
+    return "bg-red-500 text-white";
   }
 
-  return "bg-slate-800 text-slate-300";
+  return "bg-neutral-800 text-neutral-300";
 }
