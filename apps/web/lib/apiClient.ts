@@ -10,7 +10,7 @@ export async function callDemoEndpoint(
   options: ApiRequestOptions = {}
 ): Promise<ApiResult> {
   try {
-    const response = await fetch(`${DEMO_API_URL}${path}`, {
+    const response = await fetch(createApiUrl(path), {
       headers: options.paid
         ? {
             [FAINPI_PAYMENT_HEADER]: FAINPI_PAYMENT_HEADER_VALUE,
@@ -28,9 +28,9 @@ export async function callDemoEndpoint(
     return {
       status: null,
       body: {
-        error: "Failed to call FainPi demo server.",
+        error: "Failed to call FainPi demo API.",
         detail: getErrorMessage(error),
-        hint: "Make sure the demo server is running on the configured API URL.",
+        hint: "Make sure the API route is available or the configured API URL is valid.",
       },
     };
   }
@@ -41,6 +41,24 @@ export function createEmptyApiResult(message = "No request yet."): ApiResult {
     status: null,
     body: message,
   };
+}
+
+function createApiUrl(path: string) {
+  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
+  const baseUrl = DEMO_API_URL.trim();
+
+  // Default mode for Vercel: use same-origin Next.js API routes.
+  if (!baseUrl || baseUrl === "/") {
+    return normalizedPath;
+  }
+
+  // Only allow absolute HTTP URLs for external demo servers.
+  if (baseUrl.startsWith("http://") || baseUrl.startsWith("https://")) {
+    return `${baseUrl.replace(/\/$/, "")}${normalizedPath}`;
+  }
+
+  // Safety fallback: avoid malformed URLs like "api/premium-data/api/free".
+  return normalizedPath;
 }
 
 function getErrorMessage(error: unknown) {
