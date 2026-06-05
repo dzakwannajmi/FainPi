@@ -6,14 +6,16 @@ type StepCardProps = {
 
 export function StepCard({ step, title, description }: StepCardProps) {
   return (
-    <div className="soft-card rounded-3xl p-6 transition hover:border-white/50">
-      <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-white text-sm font-black text-black">
+    <div className="liquid-glass rounded-[2rem] p-6 transition duration-300 hover:bg-white/[0.04]">
+      <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-white text-sm font-semibold text-black">
         {step}
       </div>
 
-      <h3 className="card-title text-white">{title}</h3>
+      <h3 className="font-body text-lg font-medium tracking-[-0.03em] text-white">
+        {title}
+      </h3>
 
-      <p className="mt-3 leading-7 text-neutral-400">{description}</p>
+      <p className="mt-3 text-sm leading-7 text-white/55">{description}</p>
     </div>
   );
 }

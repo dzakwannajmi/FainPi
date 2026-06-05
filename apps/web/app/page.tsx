@@ -2,14 +2,12 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { FeatureLinkCard } from "@/components/FeatureLinkCard";
 import { HlsVideoBackground } from "@/components/HlsVideoBackground";
 import { ScrollRevealText } from "@/components/ScrollRevealText";
 
 const heroVideo =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260326_073936_8dd07fdb-4f6b-4220-a3f0-9dedfaab0c88.mp4";
-
-const showcaseVideo =
-  "https://media.cleanshot.cloud/media/21620/nKosRonaEKSufJVJ4VtouFhOPkqgJ3dPoQ8ZP52S.mp4";
 
 const hlsStream =
   "https://stream.mux.com/4IMYGcL01xjs7ek5ANO17JC4VQVUTsojZlnw4fXzwSxc.m3u8";
@@ -20,26 +18,30 @@ const aboutText =
 const workItems = [
   {
     title: "Paywall Generator",
-    category: "Middleware Generator",
-    image: "https://motionsites.ai/assets/hero-grow-ai-preview-BlQ8tAQ-.gif",
+    category: "Middleware",
+    description:
+      "Create a developer-friendly Express middleware snippet for a protected API endpoint with a payment-required flow.",
     href: "/generator",
   },
   {
-    title: "Premium API Demo",
-    category: "HTTP 402 API Flow",
-    image: "https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif",
+    title: "API Paywall Demo",
+    category: "HTTP 402",
+    description:
+      "Test how a premium endpoint returns 402 Payment Required before unlocking protected API data.",
     href: "/demo",
   },
   {
     title: "Freighter Payment",
-    category: "Stellar Testnet XLM",
-    image: "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif",
+    category: "Wallet",
+    description:
+      "Connect Freighter, send native XLM on Stellar Testnet, and unlock the premium endpoint after payment submission.",
     href: "/payment",
   },
   {
     title: "Soroban Registry",
-    category: "On-chain Paywall Metadata",
-    image: "https://motionsites.ai/assets/hero-neuralyn-preview-Br4FRDQA.gif",
+    category: "Contract",
+    description:
+      "View the on-chain paywall metadata registry that stores endpoint path, price, asset, network, and recipient address.",
     href: "/registry",
   },
 ];
@@ -140,17 +142,17 @@ export default function HomePage() {
 
       <section
         id="work"
-        className="relative z-10 mx-auto max-w-6xl bg-[hsl(var(--background))] px-8 pt-32 pb-16"
+        className="relative z-10 mx-auto max-w-6xl bg-[hsl(var(--background))] px-8 py-32"
       >
         <div className="mx-auto mb-16 max-w-3xl text-center">
           <h2 className="font-body text-4xl font-medium tracking-[-2px] text-[hsl(var(--foreground))] md:text-5xl">
             Selected{" "}
-            <span className="font-accent italic font-normal">Work</span>
+            <span className="font-accent italic font-normal">Modules</span>
           </h2>
 
           <p className="mx-auto mt-4 max-w-2xl text-lg text-[hsl(var(--muted-foreground))]">
-            A focused collection of FainPi modules where API monetization meets
-            Stellar payments.
+            A focused set of FainPi modules that demonstrate pay-per-request API
+            monetization on Stellar.
           </p>
         </div>
 
@@ -163,42 +165,16 @@ export default function HomePage() {
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <Link href={item.href} className="group block">
-                <div className="liquid-glass aspect-[4/3] overflow-hidden rounded-2xl">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                  />
-                </div>
-
-                <div className="mt-5">
-                  <h3 className="font-body text-xl font-medium text-[hsl(var(--foreground))]">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-1 font-body text-sm text-[hsl(var(--muted-foreground))]">
-                    {item.category}
-                  </p>
-                </div>
-              </Link>
+              <FeatureLinkCard
+                href={item.href}
+                index={`0${index + 1}`}
+                title={item.title}
+                description={item.description}
+                meta={item.category}
+              />
             </motion.div>
           ))}
         </div>
-      </section>
-
-      <section className="relative z-0 -mt-[325px] h-[650px] overflow-hidden">
-        <video
-          src={showcaseVideo}
-          className="absolute inset-0 h-full w-full object-cover"
-          autoPlay
-          loop
-          muted
-          playsInline
-        />
-
-        <div className="absolute inset-x-0 top-0 z-10 h-32 bg-gradient-to-b from-[hsl(var(--background))] to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 z-10 h-32 bg-gradient-to-t from-[hsl(var(--background))] to-transparent" />
       </section>
 
       <section

@@ -11,11 +11,21 @@ export function SectionHeader({
 }: SectionHeaderProps) {
   return (
     <div className="max-w-3xl">
-      {eyebrow ? <p className="eyebrow-text mb-3">{eyebrow}</p> : null}
+      {eyebrow ? (
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-white/45">
+          {eyebrow}
+        </p>
+      ) : null}
 
-      <h1 className="page-title-compact text-white">{title}</h1>
+      <h1 className="font-body text-4xl font-medium leading-none tracking-[-0.06em] text-white md:text-5xl">
+        {title}
+      </h1>
 
-      {description ? <p className="body-copy mt-4">{description}</p> : null}
+      {description ? (
+        <p className="mt-5 max-w-2xl text-sm leading-8 text-white/55 md:text-base">
+          {description}
+        </p>
+      ) : null}
     </div>
   );
 }
