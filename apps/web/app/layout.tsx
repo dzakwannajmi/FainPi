@@ -1,22 +1,6 @@
 import type { Metadata } from "next";
-import { Barlow, Instrument_Serif } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
-
-const barlow = Barlow({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-body",
-  display: "swap",
-});
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  style: ["normal", "italic"],
-  variable: "--font-accent",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "FainPi",
@@ -38,9 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${barlow.variable} ${instrumentSerif.variable} font-body`}
-      >
+      <body className="font-body">
         <div className="min-h-screen bg-[hsl(var(--background))] text-[hsl(var(--foreground))]">
           <header className="fixed inset-x-0 top-0 z-50 px-8 py-6">
             <nav className="flex items-center justify-between">

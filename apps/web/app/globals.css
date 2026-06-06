@@ -1,6 +1,10 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap");
 
 :root {
+  --font-body: "Barlow", sans-serif;
+  --font-accent: "Instrument Serif", serif;
+
   --background: 0 0% 0%;
   --foreground: 0 0% 100%;
 
@@ -120,15 +124,13 @@ textarea {
   z-index: -1;
   border-radius: inherit;
   padding: 1.4px;
-  background: linear-gradient(
-    180deg,
-    var(--glass-edge-strong) 0%,
-    var(--glass-edge-soft) 20%,
-    transparent 40%,
-    transparent 60%,
-    var(--glass-edge-soft) 80%,
-    var(--glass-edge-strong) 100%
-  );
+  background: linear-gradient(180deg,
+      var(--glass-edge-strong) 0%,
+      var(--glass-edge-soft) 20%,
+      transparent 40%,
+      transparent 60%,
+      var(--glass-edge-soft) 80%,
+      var(--glass-edge-strong) 100%);
   pointer-events: none;
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
