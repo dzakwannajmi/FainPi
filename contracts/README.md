@@ -1,12 +1,14 @@
 # FainPi Paywall Registry Contract
 
-This folder contains the minimal Soroban paywall registry contract for FainPi.
+This folder contains the minimal Soroban Paywall Registry contract for FainPi.
 
 ## Purpose
 
 The `FainPiRegistry` contract stores public API paywall configuration as a workshop deployment artifact.
 
 This contract is intentionally small, readable, and safe for an educational MVP. It does not process payments, custody funds, verify receipts, or implement production billing logic.
+
+---
 
 ## What This Contract Does
 
@@ -22,6 +24,8 @@ This contract is intentionally small, readable, and safe for an educational MVP.
 - Stores MVP status disclaimer
 - Provides public read methods
 
+---
+
 ## What This Contract Does Not Do
 
 - It does not custody funds
@@ -31,6 +35,8 @@ This contract is intentionally small, readable, and safe for an educational MVP.
 - It does not implement billing logic
 - It does not act as escrow
 - It does not claim production readiness
+
+---
 
 ## Contract Methods
 
@@ -47,6 +53,8 @@ This contract is intentionally small, readable, and safe for an educational MVP.
 - `payment_network() -> String`
 - `status() -> String`
 
+---
+
 ## Safety Notes
 
 - `init` can only be called once.
@@ -54,6 +62,8 @@ This contract is intentionally small, readable, and safe for an educational MVP.
 - Contract metadata is read-only after initialization.
 - Payment logic remains in the API layer.
 - This contract is only a deployment artifact for the workshop MVP.
+
+---
 
 ## Test Result
 
@@ -63,65 +73,53 @@ cargo test -p fainpi-registry
 test result: ok. 2 passed; 0 failed
 ```
 
-## Build Result
+---
 
-```txt
-Wasm File: target/wasm32v1-none/release/fainpi_registry.wasm
-Wasm Hash: 5c91ddef56ba3bcf32a45e696a29cb166bc4c14728148e8d37a872ed4bdc365a
-Wasm Size: 3163 bytes
-Exported Functions: 12
-```
-
-Exported functions:
-
-```txt
-asset
-endpoint_path
-init
-is_initialized
-kind
-name
-owner
-payment_network
-price
-recipient
-status
-version
-```
-
-## Final Testnet Deployment
+## Final Mainnet Deployment
 
 Network:
 
 ```txt
-Stellar Testnet
+Stellar Mainnet
 ```
 
 Contract ID:
 
 ```txt
-CA5D5QCSQGKTL65LEFEOFNKLFSBCTJPBHW34GBZ2CBMD6GUBM5BZBWDE
+CDKNRCWB3G4CRDKJTPQWRMI7ZV2PWFW3JX4GEI6YY5FGKLRMGD4EJ43R
 ```
 
-WASM upload transaction:
+WASM Hash:
 
 ```txt
-b0e9a0f78081b3c9e587b51f0299ee7f84d0d3874fe671249582a55eea8f58e8
+d891b45262573dde0a206e4bd849f600c6abcb7ebec7ecaf55e3110d379009bb
 ```
 
-Contract deploy transaction:
+WASM Upload Transaction:
 
 ```txt
-a9530525e87687f583ab491481a629dceb152fe1e34f36d9d717d613dd2dd82f
+0e95ff576594a212cc493d9a48fdcf11a8a5acac40651f4c55ebebe1f0416c2c
 ```
 
-Initialization transaction:
+Contract Deploy Transaction:
 
 ```txt
-1a6c70a5fd97f31195b4ec3a73dd2686e2a30051de55b24b7be94cdabf02a418
+e5e1003726a0844e085e464418028b002b4c1c757655cc15d44376b7bc17692d
 ```
 
-Readable metadata:
+Initialization Transaction:
+
+```txt
+748a9fffcaa7282d8d3e5bdc68641b9559999401bd3446bfc6308371bb176fd9
+```
+
+Stellar Lab:
+
+```txt
+https://lab.stellar.org/r/mainnet/contract/CDKNRCWB3G4CRDKJTPQWRMI7ZV2PWFW3JX4GEI6YY5FGKLRMGD4EJ43R
+```
+
+Readable Metadata:
 
 ```txt
 is_initialized: true
@@ -133,35 +131,35 @@ recipient: GDPAPDZWAKBXUPCNMI4YHAZ7DS7UOUTPGXAFDSWZG4URRMWHFSQTDQBM
 endpoint_path: /api/premium-data
 price: 0.01
 asset: XLM
-payment_network: stellar:testnet
+payment_network: stellar:mainnet
 status: Workshop MVP - not production ready
 ```
 
-## Testnet Commands
+---
 
-Build contract:
-
-```bash
-stellar contract build
-```
+## Mainnet Commands
 
 Deploy contract:
 
 ```bash
 stellar contract deploy \
   --wasm target/wasm32v1-none/release/fainpi_registry.wasm \
-  --source-account najmi \
-  --network testnet \
-  --alias fainpi_paywall_registry_testnet
+  --source-account fajrin \
+  --network mainnet \
+  --rpc-url https://rpc.ankr.com/stellar_soroban \
+  --network-passphrase "Public Global Stellar Network ; September 2015" \
+  --alias fainpi_paywall_registry_mainnet
 ```
 
 Initialize contract:
 
 ```bash
 stellar contract invoke \
-  --id fainpi_paywall_registry_testnet \
+  --id CDKNRCWB3G4CRDKJTPQWRMI7ZV2PWFW3JX4GEI6YY5FGKLRMGD4EJ43R \
   --source-account najmi \
-  --network testnet \
+  --network mainnet \
+  --rpc-url https://rpc.ankr.com/stellar_soroban \
+  --network-passphrase "Public Global Stellar Network ; September 2015" \
   -- \
   init \
   --owner GDPAPDZWAKBXUPCNMI4YHAZ7DS7UOUTPGXAFDSWZG4URRMWHFSQTDQBM \
@@ -169,53 +167,28 @@ stellar contract invoke \
   --endpoint_path "/api/premium-data" \
   --price "0.01" \
   --asset "XLM" \
-  --payment_network "stellar:testnet"
+  --payment_network "stellar:mainnet"
 ```
 
 Read metadata:
 
 ```bash
 stellar contract invoke \
-  --id fainpi_paywall_registry_testnet \
+  --id CDKNRCWB3G4CRDKJTPQWRMI7ZV2PWFW3JX4GEI6YY5FGKLRMGD4EJ43R \
   --source-account najmi \
-  --network testnet \
-  -- \
-  name
-```
-
-```bash
-stellar contract invoke \
-  --id fainpi_paywall_registry_testnet \
-  --source-account najmi \
-  --network testnet \
-  -- \
-  endpoint_path
-```
-
-```bash
-stellar contract invoke \
-  --id fainpi_paywall_registry_testnet \
-  --source-account najmi \
-  --network testnet \
-  -- \
-  price
-```
-
-```bash
-stellar contract invoke \
-  --id fainpi_paywall_registry_testnet \
-  --source-account najmi \
-  --network testnet \
+  --network mainnet \
+  --rpc-url https://rpc.ankr.com/stellar_soroban \
+  --network-passphrase "Public Global Stellar Network ; September 2015" \
   -- \
   payment_network
 ```
 
-## Mainnet Note
-
-Mainnet deployment is intended only as a workshop deployment artifact.
-
-The mainnet contract should use the same minimal paywall registry pattern and must not be described as a production payment system.
+---
 
 ## Safe Claim
 
-Minimal Soroban paywall registry contract for FainPi API paywall metadata. Payment flow remains in the API layer and is planned to be integrated with full Stellar MPP Charge verification.
+Minimal Soroban Paywall Registry contract for FainPi API paywall metadata.
+
+The contract is deployed on Stellar Mainnet as a workshop artifact. Payment flow remains in the API layer and is planned to be integrated with full Stellar MPP Charge verification.
+
+This contract does not custody funds, process API payments, verify receipts, or implement production billing logic.
