@@ -292,11 +292,13 @@ export default function PaymentPage() {
         </div>
       </section>
 
-      <ApiResponsePanel
-        title="Unlocked API response"
-        result={apiResult}
-        minHeightClassName="min-h-[520px]"
-      />
+      <div className="min-w-0 max-w-full">
+        <ApiResponsePanel
+          title="Unlocked API response"
+          result={apiResult}
+          minHeightClassName="h-[520px]"
+        />
+      </div>
     </div>
   );
 }
