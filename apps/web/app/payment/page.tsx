@@ -93,6 +93,7 @@ export default function PaymentPage() {
   const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [walletAddress, setWalletAddress] = useState("");
   const [networkName, setNetworkName] = useState("");
+  const [recipientAddress, setRecipientAddress] = useState(PAYMENT_RECIPIENT);
   const [status, setStatus] = useState<PaymentStatus>("idle");
   const [message, setMessage] = useState("Select a premium API item to open the payment form.");
   const [txHash, setTxHash] = useState("");
@@ -169,6 +170,12 @@ export default function PaymentPage() {
         throw new Error("Connect Freighter before sending payment.");
       }
 
+      const normalizedRecipientAddress = recipientAddress.trim();
+
+      if (!normalizedRecipientAddress) {
+        throw new Error("Enter a Stellar recipient public key before sending payment.");
+      }
+
       setStatus("paying");
       setTxHash("");
       setApiResult(createEmptyApiResult("Waiting for payment confirmation..."));
@@ -176,7 +183,7 @@ export default function PaymentPage() {
 
       const paymentResult = await sendNativeXlmTestnetPayment({
         sourceAddress: walletAddress,
-        recipientAddress: PAYMENT_RECIPIENT,
+        recipientAddress: normalizedRecipientAddress,
         amount: selectedItem.price,
       });
 
@@ -300,7 +307,8 @@ export default function PaymentPage() {
             <PaymentCard
               walletAddress={walletAddress}
               networkName={networkName}
-              recipientAddress={PAYMENT_RECIPIENT}
+              recipientAddress={recipientAddress}
+              onRecipientAddressChange={setRecipientAddress}
               amount={selectedItem.price}
               status={status}
               message={message}
