@@ -1,8 +1,8 @@
 # FainPi
 
-FainPi is a lightweight API paywall generator for pay-per-request API monetization powered by Stellar.
+FainPi is a lightweight API paywall generator for pay-per-request monetization, powered by Stellar.
 
-It helps developers turn API endpoints into paid endpoints using a simple payment-required flow. The MVP demonstrates HTTP `402 Payment Required`, Freighter wallet payment, premium API unlock, and a Soroban Paywall Registry contract deployed on Stellar Mainnet as a workshop artifact.
+It enables developers to protect any API endpoint behind a simple payment-required flow. The MVP demonstrates HTTP `402 Payment Required`, Freighter wallet payment, premium API unlock, and a minimal Soroban Paywall Registry contract deployed on Stellar Mainnet as a workshop artifact.
 
 > Built for Stellar Indonesia / WO UNISKA as an educational workshop MVP.
 
@@ -10,15 +10,13 @@ It helps developers turn API endpoints into paid endpoints using a simple paymen
 
 ## Live Demo
 
-```txt
+```
 https://fainpi.vercel.app
 ```
 
----
+## Repository
 
-## GitHub Repository
-
-```txt
+```
 https://github.com/dzakwannajmi/FainPi
 ```
 
@@ -26,19 +24,19 @@ https://github.com/dzakwannajmi/FainPi
 
 ## Overview
 
-FainPi demonstrates a simple idea:
+FainPi demonstrates a single, focused idea:
 
 > Turn any API endpoint into a paid endpoint.
 
-A developer can configure an endpoint path, price, asset, Stellar recipient address, and description. FainPi then generates a middleware snippet and provides a demo flow where premium API access requires payment before the protected response is returned.
+A developer configures an endpoint path, price, asset, Stellar recipient address, and description. FainPi generates a ready-to-use middleware snippet and provides a demo flow where premium API access is gated behind a Stellar payment.
 
-The MVP includes:
+**MVP includes:**
 
-- API paywall demo with `402 Payment Required`
+- `402 Payment Required` API paywall demo
 - Express middleware generator
 - Internal Next.js API routes
 - Freighter wallet payment page
-- Native XLM payment on Stellar Testnet for safe live demo usage
+- Native XLM payment on Stellar Testnet
 - Premium API unlock after payment submission
 - Minimal Soroban Paywall Registry contract deployed on Stellar Mainnet
 
@@ -46,20 +44,19 @@ The MVP includes:
 
 ## Problem Statement
 
-Small developers, students, and indie builders often have useful APIs, datasets, AI tools, or premium endpoints, but monetizing them per request is usually too complex.
+Small developers, students, and indie builders often have useful APIs, datasets, AI endpoints, or premium tools — but monetizing them on a per-request basis is typically too complex.
 
-Traditional API monetization often requires:
+Traditional API monetization requires:
 
-- Subscription billing
+- Subscription billing infrastructure
 - Payment gateway integration
-- API key billing system
+- API key billing systems
 - Manual payment verification
-- External payment processor
-- More infrastructure than a small developer needs
+- External payment processors
 
-FainPi simplifies this into:
+FainPi simplifies this to a single principle:
 
-```txt
+```
 One API request = one small payment.
 ```
 
@@ -69,7 +66,7 @@ One API request = one small payment.
 
 FainPi provides a lightweight API paywall flow:
 
-```txt
+```
 User requests premium API
         ↓
 API returns 402 Payment Required
@@ -81,7 +78,7 @@ Payment is submitted
 Premium API response is unlocked
 ```
 
-For the current MVP, FainPi demonstrates this flow using:
+The current MVP implements this flow using:
 
 - HTTP `402 Payment Required`
 - Freighter wallet connection
@@ -93,25 +90,14 @@ For the current MVP, FainPi demonstrates this flow using:
 
 ## Demo Pages
 
-```txt
-Landing Page:
-https://fainpi.vercel.app
-
-Generator:
-https://fainpi.vercel.app/generator
-
-API Demo:
-https://fainpi.vercel.app/demo
-
-Payment:
-https://fainpi.vercel.app/payment
-
-Registry:
-https://fainpi.vercel.app/registry
-
-Docs:
-https://fainpi.vercel.app/docs
-```
+| Page | URL |
+|------|-----|
+| Landing | `https://fainpi.vercel.app` |
+| Generator | `https://fainpi.vercel.app/generator` |
+| API Demo | `https://fainpi.vercel.app/demo` |
+| Payment | `https://fainpi.vercel.app/payment` |
+| Registry | `https://fainpi.vercel.app/registry` |
+| Docs | `https://fainpi.vercel.app/docs` |
 
 ---
 
@@ -119,51 +105,32 @@ https://fainpi.vercel.app/docs
 
 ### Free Endpoint
 
-```txt
+```bash
 GET /api/free
 ```
 
-Example:
-
 ```bash
 curl https://fainpi.vercel.app/api/free
+# → 200 OK
 ```
 
-Expected result:
+### Premium Endpoint — Without Payment
 
-```txt
-200 OK
-```
-
-### Premium Endpoint Without Payment
-
-```txt
+```bash
 GET /api/premium-data
 ```
 
-Example:
-
 ```bash
 curl -i https://fainpi.vercel.app/api/premium-data
+# → 402 Payment Required
 ```
 
-Expected result:
-
-```txt
-402 Payment Required
-```
-
-### Premium Endpoint With Demo Receipt
+### Premium Endpoint — With Demo Receipt
 
 ```bash
 curl https://fainpi.vercel.app/api/premium-data \
   -H "x-fainpi-payment: paid"
-```
-
-Expected result:
-
-```txt
-Premium API data is returned.
+# → Premium API data returned
 ```
 
 ---
@@ -171,196 +138,140 @@ Premium API data is returned.
 ## Tech Stack
 
 ### Frontend
-
 - Next.js
 - TypeScript
 - Tailwind CSS
 - Framer Motion
-- hls.js
 - Freighter API
 - Stellar SDK
 
 ### API Layer
-
 - Next.js API Routes
 - HTTP `402 Payment Required`
 - Demo receipt header
 
 ### Smart Contract
-
 - Rust
 - Soroban SDK
 - Stellar CLI
 - Stellar Mainnet
 
 ### Deployment
-
 - Vercel
 - GitHub
-- Stellar Mainnet
 
 ---
 
 ## Stellar Integration
 
-FainPi integrates Stellar in three parts:
+FainPi integrates Stellar across three layers:
 
 ### 1. Freighter Wallet Payment
 
-Users can connect Freighter and send a native XLM payment on Stellar Testnet.
-
-The live payment demo uses Stellar Testnet for safety and workshop demonstration purposes.
+Users connect Freighter and send a native XLM payment on Stellar Testnet. Testnet is used intentionally for safe live demo usage during the workshop.
 
 ### 2. API Paywall Flow
 
-The premium endpoint returns `402 Payment Required` when accessed without payment. After payment submission, the current MVP unlocks the premium endpoint using a demo receipt header.
+The premium endpoint returns `402 Payment Required` when accessed without payment. After payment submission, the current MVP unlocks the premium endpoint using a demo receipt header (`x-fainpi-payment: paid`).
 
 ### 3. Soroban Paywall Registry Contract
 
-FainPi includes a minimal Soroban contract deployed on Stellar Mainnet.
+FainPi includes a minimal Soroban contract deployed on Stellar Mainnet that stores public API paywall metadata:
 
-The contract stores public API paywall metadata:
-
-- Project name
-- Version
-- Registry type
-- Owner address
-- Recipient address
-- Endpoint path
-- Price
-- Asset
-- Payment network
+- Project name and version
+- Registry category
+- Owner and recipient address
+- Protected endpoint path
+- Price, asset, and payment network
 - MVP status disclaimer
 
 ---
 
-## Final Mainnet Deployment
+## Mainnet Contract
 
-Network:
+| Field | Value |
+|-------|-------|
+| Network | Stellar Mainnet |
+| Contract ID | `CDKNRCWB3G4CRDKJTPQWRMI7ZV2PWFW3JX4GEI6YY5FGKLRMGD4EJ43R` |
+| WASM Hash | `d891b45262573dde0a206e4bd849f600c6abcb7ebec7ecaf55e3110d379009bb` |
+| WASM Upload Tx | `0e95ff576594a212cc493d9a48fdcf11a8a5acac40651f4c55ebebe1f0416c2c` |
+| Deploy Tx | `e5e1003726a0844e085e464418028b002b4c1c757655cc15d44376b7bc17692d` |
+| Init Tx | `748a9fffcaa7282d8d3e5bdc68641b9559999401bd3446bfc6308371bb176fd9` |
+| Stellar Lab | [View on Stellar Lab](https://lab.stellar.org/r/mainnet/contract/CDKNRCWB3G4CRDKJTPQWRMI7ZV2PWFW3JX4GEI6YY5FGKLRMGD4EJ43R) |
 
-```txt
-Stellar Mainnet
+**Readable contract state:**
+
 ```
-
-Contract ID:
-
-```txt
-CDKNRCWB3G4CRDKJTPQWRMI7ZV2PWFW3JX4GEI6YY5FGKLRMGD4EJ43R
-```
-
-WASM Hash:
-
-```txt
-d891b45262573dde0a206e4bd849f600c6abcb7ebec7ecaf55e3110d379009bb
-```
-
-WASM Upload Transaction:
-
-```txt
-0e95ff576594a212cc493d9a48fdcf11a8a5acac40651f4c55ebebe1f0416c2c
-```
-
-Contract Deploy Transaction:
-
-```txt
-e5e1003726a0844e085e464418028b002b4c1c757655cc15d44376b7bc17692d
-```
-
-Initialization Transaction:
-
-```txt
-748a9fffcaa7282d8d3e5bdc68641b9559999401bd3446bfc6308371bb176fd9
-```
-
-Stellar Lab:
-
-```txt
-https://lab.stellar.org/r/mainnet/contract/CDKNRCWB3G4CRDKJTPQWRMI7ZV2PWFW3JX4GEI6YY5FGKLRMGD4EJ43R
-```
-
-Readable Metadata:
-
-```txt
-is_initialized: true
-name: FainPi
-version: 0.2.0
-kind: Pay-per-request API paywall registry
-owner: GDPAPDZWAKBXUPCNMI4YHAZ7DS7UOUTPGXAFDSWZG4URRMWHFSQTDQBM
-recipient: GDPAPDZWAKBXUPCNMI4YHAZ7DS7UOUTPGXAFDSWZG4URRMWHFSQTDQBM
-endpoint_path: /api/premium-data
-price: 0.01
-asset: XLM
-payment_network: stellar:mainnet
-status: Workshop MVP - not production ready
+is_initialized   : true
+name             : FainPi
+version          : 0.2.0
+kind             : Pay-per-request API paywall registry
+owner            : GDPAPDZWAKBXUPCNMI4YHAZ7DS7UOUTPGXAFDSWZG4URRMWHFSQTDQBM
+recipient        : GDPAPDZWAKBXUPCNMI4YHAZ7DS7UOUTPGXAFDSWZG4URRMWHFSQTDQBM
+endpoint_path    : /api/premium-data
+price            : 0.01
+asset            : XLM
+payment_network  : stellar:mainnet
+status           : Workshop MVP - not production ready
 ```
 
 ---
 
-## Contract Purpose
+## Contract Scope
 
-The Soroban contract is a minimal Paywall Registry artifact.
+The Soroban contract is a minimal Paywall Registry artifact. It stores public metadata for the protected API endpoint and is readable by anyone on-chain.
 
-It stores public metadata for the protected API endpoint. It does not process payments.
-
-### What This Contract Does
-
-- Stores project name
-- Stores project version
-- Stores registry category
-- Stores owner address
-- Stores payment recipient address
-- Stores protected endpoint path
-- Stores price per request
-- Stores payment asset
-- Stores payment network
+**What this contract does:**
+- Stores project name, version, and registry category
+- Stores owner and recipient address
+- Stores protected endpoint path, price, asset, and payment network
 - Stores MVP status disclaimer
-- Provides public read methods
+- Exposes public read methods
 
-### What This Contract Does Not Do
-
-- It does not custody funds
-- It does not process API payments
-- It does not replace Stellar MPP Charge
-- It does not verify payment receipts
-- It does not implement billing logic
-- It does not act as escrow
-- It does not claim production readiness
+**What this contract does not do:**
+- Custody funds
+- Process API payments
+- Verify payment receipts
+- Implement billing logic
+- Replace Stellar MPP Charge
+- Act as escrow
+- Claim production readiness
 
 ---
 
 ## Local Development
 
-Install dependencies:
+**Install dependencies:**
 
 ```bash
 npm install
 ```
 
-Run the web app:
+**Run the web app:**
 
 ```bash
 npm run dev:web
 ```
 
-Run the optional local demo server:
+**Run the optional local demo server:**
 
 ```bash
 npm run dev:server
 ```
 
-Build the web app:
+**Build the web app:**
 
 ```bash
 npm run build --workspace apps/web
 ```
 
-Run contract tests:
+**Run contract tests:**
 
 ```bash
 cargo test -p fainpi-registry
 ```
 
-Build the contract:
+**Build the contract:**
 
 ```bash
 stellar contract build
@@ -370,108 +281,82 @@ stellar contract build
 
 ## Demo Flow
 
-Recommended presentation flow:
+Recommended presentation order:
 
-1. Open the landing page.
-2. Explain the problem: small developers need a simple way to monetize APIs per request.
-3. Open the Generator page.
-4. Generate a middleware snippet for `/api/premium-data`.
-5. Open the Demo page.
-6. Call the free endpoint.
-7. Call the premium endpoint without payment.
-8. Show the `402 Payment Required` response.
-9. Open the Payment page.
-10. Connect Freighter.
-11. Make sure Freighter is on Stellar Testnet.
-12. Pay `0.01 XLM`.
-13. Show the transaction hash.
-14. Show the premium API response after payment.
-15. Open the Registry page.
-16. Show the Soroban Paywall Registry contract on Stellar Mainnet.
-17. Explain that full Stellar MPP Charge verification is the next phase.
+1. Open the landing page — introduce the problem.
+2. Open the **Generator** page — configure and generate a middleware snippet for `/api/premium-data`.
+3. Open the **Demo** page — call the free endpoint, then the premium endpoint without payment to show `402 Payment Required`.
+4. Open the **Payment** page — connect Freighter (set to Stellar Testnet), pay `0.01 XLM`, and show the transaction hash.
+5. Show the premium API response unlocked after payment.
+6. Open the **Registry** page — show the Soroban Paywall Registry contract on Stellar Mainnet.
+7. Close with the roadmap: full Stellar MPP Charge integration is the next phase.
 
 ---
 
-## What Is Implemented
+## Implementation Status
 
-- Dark liquid-glass landing page
-- API paywall generator UI
-- Generated Express middleware snippet
-- Internal Next.js API routes
-- Free API endpoint
-- Premium API endpoint
-- HTTP `402 Payment Required` response
-- Demo receipt-based API unlock
-- Freighter wallet connection
-- Native XLM payment on Stellar Testnet
-- Transaction hash display
-- Stellar Expert transaction link
-- Soroban Paywall Registry contract
-- Final Stellar Mainnet deployment
-- Registry page showing contract metadata
-- Vercel live deployment
-
----
-
-## What Is Planned
-
-- Full Stellar MPP Charge verification
-- Production-grade payment receipt validation
-- USDC/SAC settlement support
-- Multi-endpoint paywall registry
-- Real earnings tracking
-- API usage analytics
-- Developer middleware package
-- MPP Session support for high-frequency API payments
+| Feature | Status |
+|---------|--------|
+| Landing page | ✅ Done |
+| API paywall generator UI | ✅ Done |
+| Generated Express middleware snippet | ✅ Done |
+| Internal Next.js API routes | ✅ Done |
+| Free API endpoint | ✅ Done |
+| Premium API endpoint | ✅ Done |
+| HTTP `402 Payment Required` | ✅ Done |
+| Demo receipt-based API unlock | ✅ Done |
+| Freighter wallet connection | ✅ Done |
+| Native XLM payment on Stellar Testnet | ✅ Done |
+| Transaction hash display | ✅ Done |
+| Stellar Expert transaction link | ✅ Done |
+| Soroban Paywall Registry contract | ✅ Done |
+| Stellar Mainnet deployment | ✅ Done |
+| Registry page | ✅ Done |
+| Vercel deployment | ✅ Done |
+| Full Stellar MPP Charge verification | 📋 Planned |
+| USDC/SAC settlement | 📋 Planned |
+| Multi-endpoint paywall registry | 📋 Planned |
+| Real earnings tracking | 📋 Planned |
+| API usage analytics | 📋 Planned |
+| MPP Session support | 📋 Planned |
 
 ---
 
-## Limitations
+## Known Limitations
 
-FainPi is currently an educational workshop MVP.
+FainPi is an educational workshop MVP and has intentional scope constraints:
 
-Current limitations:
-
-- API unlock still uses a demo receipt header.
-- Native XLM on Stellar Testnet is used for safer live payment testing.
-- Full Stellar MPP Charge verification is not implemented yet.
-- No production-grade payment verification.
-- No persistent database.
-- No user authentication.
-- No real earnings tracking.
-- The Soroban contract stores metadata only.
+- API unlock uses a demo receipt header — not cryptographic payment verification.
+- Native XLM on Stellar Testnet is used for safer live payment demonstration.
+- Full Stellar MPP Charge verification is not yet implemented.
+- No persistent database, user authentication, or real earnings tracking.
+- The Soroban contract stores metadata only — it does not process payments.
 
 ---
 
-## Important Disclaimer
+## Disclaimer
 
-FainPi is an educational workshop MVP and proof-of-concept.
+FainPi is an educational workshop MVP and proof-of-concept. It is not production-ready.
 
-It is not production-ready.
+The live payment demo runs on Stellar Testnet for safety. The Stellar Mainnet contract is a workshop deployment artifact that stores public API paywall metadata only — it does not custody funds, process payments, verify receipts, or implement billing logic.
 
-The live payment demo uses Stellar Testnet for safety. The Stellar Mainnet contract is a workshop deployment artifact that stores public API paywall metadata only.
-
-The Soroban contract does not custody funds, process API payments, verify receipts, or implement production billing logic.
-
-The intended production direction is to integrate the API layer with full Stellar MPP Charge verification.
+The intended production direction is full Stellar MPP Charge integration for on-chain payment verification per API request.
 
 ---
 
 ## Safe Pitch
 
-FainPi helps developers monetize API endpoints with a lightweight pay-per-request flow on Stellar.
+FainPi enables developers to monetize API endpoints with a lightweight pay-per-request flow on Stellar.
 
 The MVP demonstrates an API paywall using HTTP `402 Payment Required`, a Freighter-based native XLM payment on Stellar Testnet, and premium endpoint unlock after payment submission.
 
-A minimal Soroban Paywall Registry contract is deployed on Stellar Mainnet as a public API paywall metadata artifact. The next phase is full Stellar MPP Charge integration for production-grade payment verification.
+A minimal Soroban Paywall Registry contract is deployed on Stellar Mainnet as a public API paywall metadata artifact. The next phase targets full Stellar MPP Charge integration for production-grade, on-chain payment verification.
 
 ---
 
 ## Author
 
 Muhammad Dzakwan Najmi
-
----
 
 ## Built For
 
