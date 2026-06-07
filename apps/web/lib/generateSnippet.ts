@@ -1,4 +1,4 @@
-export type SnippetConfig = {
+type GenerateExpressSnippetOptions = {
   endpointPath: string;
   amount: string;
   currency: string;
@@ -6,12 +6,19 @@ export type SnippetConfig = {
   description: string;
 };
 
-export function generateExpressSnippet(config: SnippetConfig) {
-  const endpointPath = normalizeEndpointPath(config.endpointPath);
-  const amount = config.amount || "0.01";
-  const currency = config.currency || "USDC";
-  const recipient = config.recipient || "G_REPLACE_WITH_YOUR_STELLAR_PUBLIC_KEY";
-  const description = config.description || "Premium API access";
+export function generateExpressSnippet({
+  endpointPath,
+  amount,
+  currency,
+  recipient,
+  description,
+}: GenerateExpressSnippetOptions) {
+  const normalizedEndpointPath = normalizeEndpointPath(endpointPath);
+  const normalizedAmount = amount.trim() || "0.01";
+  const normalizedCurrency = currency.trim() || "XLM";
+  const normalizedRecipient =
+    recipient.trim() || "REPLACE_WITH_YOUR_STELLAR_PUBLIC_KEY";
+  const normalizedDescription = description.trim() || "Premium API access";
 
   return `import "dotenv/config";
 import express from "express";
@@ -20,47 +27,69 @@ const app = express();
 
 const PORT = process.env.PORT || 3002;
 const STELLAR_RECIPIENT =
-  process.env.STELLAR_RECIPIENT || "${recipient}";
+  process.env.STELLAR_RECIPIENT || ${toCodeString(normalizedRecipient)};
 
 app.use(express.json());
 
-function requirePayment(req, res, next) {
-  const paymentHeader = req.header("x-fainpi-payment");
+/**
+ * FainPi MVP note:
+ * This middleware demonstrates the HTTP 402 payment flow using a demo receipt
+ * header. Replace this demo header with full Stellar MPP Charge or on-chain
+ * payment verification before using it in production.
+ */
+function requireDemoPayment(req, res, next) {
+  const paymentReceipt = req.header("x-fainpi-payment");
 
-  if (paymentHeader !== "paid") {
+  if (paymentReceipt !== "paid") {
     return res.status(402).json({
       error: "Payment Required",
-      protocol: "Stellar MPP Charge",
-      amount: "${amount}",
-      currency: "${currency}",
+      protocol: "FainPi demo receipt",
+      verificationMode: "demo-header",
+      amount: ${toCodeString(normalizedAmount)},
+      currency: ${toCodeString(normalizedCurrency)},
       recipient: STELLAR_RECIPIENT,
-      description: "${description}",
+      description: ${toCodeString(normalizedDescription)},
       nextStep:
-        "Connect this middleware to Stellar MPP Charge for real settlement."
+        "Replace this demo receipt with full Stellar MPP Charge verification.",
     });
   }
 
-  return next();
+  next();
 }
 
-app.get("${endpointPath}", requirePayment, (req, res) => {
+app.get(${toCodeString(normalizedEndpointPath)}, requireDemoPayment, (_req, res) => {
   return res.json({
-    message: "This response is protected by FainPi.",
+    message: "Premium API unlocked.",
     access: "paid",
-    price: "${amount} ${currency}"
+    poweredBy: "FainPi API Paywall",
+    data: [
+      {
+        id: 1,
+        title: ${toCodeString(normalizedDescription)},
+        value: "Example paid API payload.",
+      },
+    ],
   });
 });
 
 app.listen(PORT, () => {
-  console.log(\`Protected API server is running on http://localhost:\${PORT}\`);
+  console.log(\`FainPi protected API running on port \${PORT}\`);
 });
 `;
 }
 
-function normalizeEndpointPath(value: string) {
-  if (!value.trim()) {
+function normalizeEndpointPath(endpointPath: string) {
+  const trimmedEndpointPath = endpointPath.trim();
+
+  if (!trimmedEndpointPath) {
     return "/api/premium-data";
   }
 
-  return value.startsWith("/") ? value : `/${value}`;
+  return trimmedEndpointPath.startsWith("/")
+    ? trimmedEndpointPath
+    : `/${trimmedEndpointPath}`;
+}
+
+function toCodeString(value: string) {
+  return JSON.stringify(value);
 }
