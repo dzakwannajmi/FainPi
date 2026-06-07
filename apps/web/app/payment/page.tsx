@@ -90,21 +90,22 @@ const premiumApiItems: PremiumApiItem[] = [
 ];
 
 export default function PaymentPage() {
-  const [selectedItemId, setSelectedItemId] = useState(premiumApiItems[0].id);
+  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
   const [walletAddress, setWalletAddress] = useState("");
   const [networkName, setNetworkName] = useState("");
   const [status, setStatus] = useState<PaymentStatus>("idle");
-  const [message, setMessage] = useState("Choose a premium API item and connect Freighter.");
+  const [message, setMessage] = useState("Select a premium API item to open the payment form.");
   const [txHash, setTxHash] = useState("");
   const [apiResult, setApiResult] = useState<ApiResult>(
     createEmptyApiResult("No premium API request yet.")
   );
 
   const selectedItem = useMemo(() => {
-    return (
-      premiumApiItems.find((item) => item.id === selectedItemId) ??
-      premiumApiItems[0]
-    );
+    if (!selectedItemId) {
+      return null;
+    }
+
+    return premiumApiItems.find((item) => item.id === selectedItemId) ?? null;
   }, [selectedItemId]);
 
   const explorerUrl = useMemo(() => {
@@ -127,14 +128,14 @@ export default function PaymentPage() {
 
       if (!walletConnection) {
         setStatus("idle");
-        setMessage("Choose a premium API item and connect Freighter.");
+        setMessage("Select a premium API item to open the payment form.");
         return;
       }
 
       setWalletAddress(walletConnection.address);
       setNetworkName(walletConnection.network);
       setStatus("connected");
-      setMessage("Freighter wallet connected. You can now pay for the selected API item.");
+      setMessage("Freighter wallet connected. Select a premium API item to continue.");
     } catch (error) {
       setStatus("error");
       setMessage(getErrorMessage(error));
@@ -151,7 +152,7 @@ export default function PaymentPage() {
       setWalletAddress(walletConnection.address);
       setNetworkName(walletConnection.network);
       setStatus("connected");
-      setMessage("Freighter wallet connected. You can now pay for the selected API item.");
+      setMessage("Freighter wallet connected. Select a premium API item to continue.");
     } catch (error) {
       setStatus("error");
       setMessage(getErrorMessage(error));
@@ -160,6 +161,10 @@ export default function PaymentPage() {
 
   async function handlePayWithXlm() {
     try {
+      if (!selectedItem) {
+        throw new Error("Select a premium API item before sending payment.");
+      }
+
       if (!walletAddress) {
         throw new Error("Connect Freighter before sending payment.");
       }
@@ -220,6 +225,14 @@ export default function PaymentPage() {
     setApiResult(createEmptyApiResult("No premium API request yet."));
   }
 
+  function handleCancelSelection() {
+    setSelectedItemId(null);
+    setTxHash("");
+    setStatus(walletAddress ? "connected" : "idle");
+    setMessage("Select a premium API item to open the payment form.");
+    setApiResult(createEmptyApiResult("No premium API request yet."));
+  }
+
   return (
     <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[0.95fr_1.05fr]">
       <section className="space-y-7">
@@ -259,37 +272,64 @@ export default function PaymentPage() {
               <PremiumApiCard
                 key={item.id}
                 item={item}
-                isSelected={item.id === selectedItem.id}
+                isSelected={item.id === selectedItemId}
                 onSelect={() => handleSelectItem(item.id)}
               />
             ))}
           </div>
         </section>
 
-        <SelectedApiSummary item={selectedItem} />
+        {selectedItem ? (
+          <>
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-xs font-medium uppercase tracking-[0.28em] text-white/40">
+                Selected API
+              </p>
 
-        <PaymentCard
-          walletAddress={walletAddress}
-          networkName={networkName}
-          recipientAddress={PAYMENT_RECIPIENT}
-          amount={selectedItem.price}
-          status={status}
-          message={message}
-          txHash={txHash}
-          explorerUrl={explorerUrl}
-          onConnect={handleConnectWallet}
-          onPay={handlePayWithXlm}
-        />
+              <button
+                type="button"
+                onClick={handleCancelSelection}
+                className="rounded-full border border-white/15 px-4 py-2 text-xs font-semibold text-white/70 transition hover:border-white/40 hover:text-white"
+              >
+                Exit
+              </button>
+            </div>
 
-        <div className="liquid-glass rounded-[2rem] p-5">
-          <h2 className="text-sm font-semibold text-white">MVP note</h2>
+            <SelectedApiSummary item={selectedItem} />
 
-          <p className="mt-2 text-sm leading-7 text-white/55">
-            The live payment demo uses Stellar Testnet for safety. The mainnet
-            Soroban contract stores public paywall metadata only. Full Stellar
-            MPP Charge verification is planned as the next integration phase.
-          </p>
-        </div>
+            <PaymentCard
+              walletAddress={walletAddress}
+              networkName={networkName}
+              recipientAddress={PAYMENT_RECIPIENT}
+              amount={selectedItem.price}
+              status={status}
+              message={message}
+              txHash={txHash}
+              explorerUrl={explorerUrl}
+              onConnect={handleConnectWallet}
+              onPay={handlePayWithXlm}
+            />
+
+            <div className="liquid-glass rounded-[2rem] p-5">
+              <h2 className="text-sm font-semibold text-white">MVP payment note</h2>
+
+              <p className="mt-2 text-sm leading-7 text-white/55">
+                This page submits a real native XLM transaction on Stellar Testnet.
+                However, API unlock in this MVP still uses a demo receipt header.
+                Full on-chain payment verification with Stellar MPP Charge is planned
+                for the next phase.
+              </p>
+            </div>
+          </>
+        ) : (
+          <div className="liquid-glass rounded-[2rem] p-6">
+            <h2 className="text-sm font-semibold text-white">No API selected</h2>
+
+            <p className="mt-2 text-sm leading-7 text-white/55">
+              Select one premium API from the catalog above to open the payment form.
+            </p>
+          </div>
+        )}
       </section>
 
       <div className="min-w-0 max-w-full">
